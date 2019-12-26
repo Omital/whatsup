@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:whats_app/pages/camera_screen.dart';
+import 'package:whats_app/models/chat_model.dart';
 
-class CreateChatScreen extends StatelessWidget {
+class SingleChatScreen extends StatelessWidget {
+  final ChatModel data;
+  SingleChatScreen({@required this.data});
+
   @override
   Widget build(BuildContext context) {
     return new Directionality(
       textDirection: TextDirection.rtl,
       child: new Scaffold(
         appBar: new AppBar(
-          title: new Text("ایجاد چت"),
+          automaticallyImplyLeading: false,
+          title: new Row(
+            children: <Widget>[
+              new GestureDetector(
+                onTap: () {
+                  Navigator.pop(context,"سلام "+data.name);
+                },
+                child: new Icon(Icons.arrow_back),
+              ),
+              new SizedBox(
+                width: 10,
+              ),
+              new CircleAvatar(
+                backgroundColor: Colors.grey,
+                backgroundImage: new NetworkImage(data.avatarUrl),
+              ),
+              new SizedBox(
+                width: 10,
+              ),
+              new Text(
+                data.name,
+                style: new TextStyle(fontSize: 16),
+              )
+            ],
+          ),
         ),
         body: new Center(
           child: new Column(
@@ -19,9 +46,7 @@ class CreateChatScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context, new MaterialPageRoute(builder: (contex)=>new CameraScreen()));
-                    },
+                    onPressed: () {},
                     child: new Text('صفحه دوم'),
                   ),
                   new RaisedButton(
